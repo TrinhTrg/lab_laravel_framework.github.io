@@ -50,13 +50,13 @@ return [
     |
     */
 
-    'channels' => [
-
+        'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', (string) env('LOG_STACK', 'single')),
+            'channels' => ['single', 'slack'],
             'ignore_exceptions' => false,
         ],
+
 
         'single' => [
             'driver' => 'single',

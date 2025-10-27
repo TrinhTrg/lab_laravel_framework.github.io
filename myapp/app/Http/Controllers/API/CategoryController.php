@@ -9,16 +9,15 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class CategoryController extends Controller
 {
-   
-    // public function index()
-    // {
-    //     $query = Category::query()
-    //         ->when(request('search'), function(Builder $query, $search) {
-    //             return $query->where('name', 'like', '%'.$search);
-    //         });
+    public function index()
+    {
+        $query = Category::query()
+            ->when(request('search'), function(Builder $query, $search) {
+                return $query->where('name', 'like', '%'.$search);
+            });
 
-    //     return $query->simplePaginate();
-    // }
+        return $query->simplePaginate();
+    }
     // ---------------------------------------- //
     // Test tính năng cho Pagination cho API
     // public function index(Request $request)
@@ -30,14 +29,14 @@ class CategoryController extends Controller
     // }
     // ---------------------------------------- //
     // Test tính năng Sort theo giá
-    public function index(Request $request)
-    {
-    $sort = $request->query('sort', 'asc'); // asc hoặc desc
+    // public function index(Request $request)
+    // {
+    // $sort = $request->query('sort', 'asc'); // asc hoặc desc
 
-    $products = \App\Models\Product::orderBy('price', $sort)->get();
+    // $products = \App\Models\Product::orderBy('price', $sort)->get();
 
-    return response()->json($products);
-    }
+    // return response()->json($products);
+    // }
 
 
     /**

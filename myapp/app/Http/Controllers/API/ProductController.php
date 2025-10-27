@@ -12,21 +12,34 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    // public function index(Request $request)
+    // {
+    //     $sort = $request->query('sort', 'asc'); // mặc định asc
+    //     $perPage = $request->query('limit', 10); // phân trang
+
+    //     // chỉ chấp nhận asc hoặc desc
+    //     if (!in_array($sort, ['asc', 'desc'])) {
+    //         $sort = 'asc';
+    //     }
+
+    //     $products = Product::orderBy('price', $sort)
+    //         ->paginate($perPage);
+
+    //     return response()->json($products);
+    // }
+        public function index()
     {
-        $sort = $request->query('sort', 'asc'); // mặc định asc
-        $perPage = $request->query('limit', 10); // phân trang
+        $query = Product::query()
+            ->when(request('with'), function(Builder $query, $with) {
+                $query->with(explode(',', $with));
+            })
+            ->when(request('search'), function(Builder $query, $search) {
+                return $query->where('name', 'like', '%'.$search);
+            });
 
-        // chỉ chấp nhận asc hoặc desc
-        if (!in_array($sort, ['asc', 'desc'])) {
-            $sort = 'asc';
-        }
-
-        $products = Product::orderBy('price', $sort)
-            ->paginate($perPage);
-
-        return response()->json($products);
+        return $query->simplePaginate();
     }
+
 
     /**
      * Store a newly created resource in storage.
