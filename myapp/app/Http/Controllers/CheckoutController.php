@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\CartService;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
+use App\Events\OrderCreated;
 
 class CheckoutController extends Controller
 {
@@ -31,7 +32,8 @@ class CheckoutController extends Controller
         $order = $cart->getCart()->order()->save(
             Order::factory()->make($validated)
         );
-        
+        OrderCreated::dispatch($order);
+                    
         return redirect(URL::signedRoute('orders.complete', [ 'order' => $order->id ]));
     }
 
