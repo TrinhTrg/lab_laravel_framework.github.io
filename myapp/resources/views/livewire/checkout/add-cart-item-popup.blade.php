@@ -5,25 +5,27 @@
         </x-slot:title>
 
         <x-slot:body>
-            <div class="grid gird-cols-1 gap-6">
-                <img class="object-cover w-full h-64" src="{{ $product->display_image_url }}?w=600"
+            <div class="grid grid-cols-1 gap-6">
+                
+                <img class="object-cover w-full h-64 rounded-lg" src="{{ $product->display_image_url }}?w=600"
                      alt="product image"/>
 
                 <span class="text-on-surface-600 text-3xl font-bold">
-                        {{ $product->formatted_price }}
-                    </span>
+                    {{ $product->formatted_price }}
+                </span>
 
                 <p class="overflow-y-auto max-h-32 text-on-surface-500">
                     {{ $product->description }}
                 </p>
             </div>
 
-            <div>
+            <div class="mt-4">
                 <x-text-input label="{{ __('Special instructions') }}" model="notes"
                               placeholder="{{ __('Ex. No onions please') }}"/>
 
                 <div class="flex flex-row items-center mt-4 text-on-surface-600">
-                    <div class="w-1/3 grid grid-cols-3">
+                    
+                    <div class="w-1/3 grid grid-cols-3 place-items-center">
                         <button class="active:translate-y-1" wire:click="decrement">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  class="w-5 h-5">

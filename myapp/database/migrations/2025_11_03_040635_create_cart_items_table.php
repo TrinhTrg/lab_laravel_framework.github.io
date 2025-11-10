@@ -13,27 +13,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cart_items', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->integer('quantity')->default(CartItem::MIN_QUANTITY);
             $table->text('notes')->nullable();
+            $table->foreignId('cart_id');
+            $table->foreignId('product_id');
 
-            $table->uuid('cart_id');
-            $table->unsignedBigInteger('product_id');
-
-            // Cách 1: dùng foreignId + constrained() (gọn, Laravel-style)
             $table->foreign('cart_id')
-                  ->references('id')
-                  ->on('carts')
-                  ->cascadeOnUpdate()
-                  ->cascadeOnDelete();
+                    ->references('id')
+                    ->on('carts')
+                    ->constrained()
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
 
             $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->cascadeOnUpdate()
-                  ->cascadeOnDelete();
-            // Không cho trùng sản phẩm trong cùng giỏ
-            $table->unique(['cart_id', 'product_id']);
+                    ->references('id')
+                    ->on('products')
+                    ->constrained()
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+
+            $table->unique([ 'cart_id', 'product_id' ]);
 
             $table->timestamps();
         });

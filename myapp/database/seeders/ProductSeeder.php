@@ -8,9 +8,11 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProductSeeder extends Seeder
 {
+    
     public const DEFAULT_CURRENCY = 'VNĐ';
     
     public $products = [
+        
         [
             'id' => 1,
             'category_id' => 1,

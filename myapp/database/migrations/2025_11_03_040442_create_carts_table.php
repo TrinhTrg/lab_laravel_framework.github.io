@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->uuid('id')->primary(); // dùng UUID làm id cho đồng bộ
-            $table->uuid('user_id');       // vì user_id trong hệ thống cũng là UUID
+            $table->id();
+            $table->string('user_id');
             $table->timestamps();
         });
     }

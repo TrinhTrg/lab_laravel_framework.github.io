@@ -1,4 +1,4 @@
-<div class="fixed z-20 rounded-lg" style="right: 20px; top: 20px;">
+<div class="fixed z-50 rounded-lg" style="right: 20px; top: 20px;">
     <div x-data="{
         open: false,
         selectedTheme: $wire.entangle('theme'),

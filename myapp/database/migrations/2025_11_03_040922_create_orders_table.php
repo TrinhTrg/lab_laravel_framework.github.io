@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->uuid('cart_id'); // ✅ Đổi từ foreignId() sang uuid()
+            $table->foreignId('cart_id');
             $table->string('code')->unique();
             $table->string('full_name');
             $table->string('phone_number');
@@ -23,14 +23,13 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->timestamps();
 
-            // ✅ Khóa ngoại đúng kiểu dữ liệu
             $table->foreign('cart_id')
                 ->references('id')
                 ->on('carts')
+                ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });
-
     }
 
     /**
