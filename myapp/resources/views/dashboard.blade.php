@@ -7,10 +7,13 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <b>{{ auth()->user()->name }},</b> {{ __("You're logged in!") }}
-                    </div>
-
+                     <x-panel :header="__('Dashboard')">
+                        <div class="text-on-surface-600">
+                            <span>{{ __('Hello') }}</span>
+                            <b>{{ auth()->user()->name }},</b>
+                            <span>{{ __("You're logged in!") }}</span>
+                        </div>
+                    </x-panel>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
 
